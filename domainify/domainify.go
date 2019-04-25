@@ -6,6 +6,7 @@ package main
 */
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"math/rand"
 	"os"
@@ -21,7 +22,12 @@ var tlds = []string{"com", "cat"}
 const allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789_-"
 
 func main() {
-
+	var flagTlds = flag.String("tlds", "com, cat", "トップドメインの追加")
+	flag.Parse()
+	slice := strings.Split(*flagTlds, ",")
+	for _, str := range slice {
+		tlds = append(tlds, str)
+	}
 	rand.Seed(time.Now().UTC().UnixNano())
 	s := bufio.NewScanner(os.Stdin)
 
